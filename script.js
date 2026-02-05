@@ -65,7 +65,6 @@ function showBooks(category) {
     div.innerHTML = `
       ${isNew ? `<div class="badge">New!</div>` : ""}
       <div class="book-title">${book.title}</div>
-      <div class="meta">Age: ${book.age} years</div>
       <div class="meta">Skill: ${book.skill}</div>
       <div class="meta">📅 Added: ${book.dateAdded}</div>
       <a href="${book.link}" target="_blank">Buy on TikTok</a>
