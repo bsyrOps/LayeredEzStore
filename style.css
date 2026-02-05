@@ -153,17 +153,30 @@ header {
   margin-top: 8px;
 }
 
-/* Special styling for Shop by Age button */
+/* Remove special orange styling from Shop by Age */
 .category.shop-by-age {
-  background: #fed7aa; /* soft orange background */
+  background: #e8f0ff; /* same as other categories */
   color: #111;
-  border: 2px solid #f97316; /* orange border */
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  border: none; /* remove orange border */
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08); /* same as other categories */
   transform: scale(1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .category.shop-by-age:hover {
-  transform: scale(1.03);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+  transform: translateY(-2px); /* same as other categories */
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+/* Optional: Shop by Categories keep default category styling */
+.category.shop-by-categories {
+  background: #e8f0ff;
+  color: #111;
+  border: none;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category.shop-by-categories:hover {
+  transform: translateY(-2px);
 }
