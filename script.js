@@ -14,39 +14,60 @@ async function loadData() {
   try {
     const response = await fetch('books.json');
     data = await response.json();
-    showCategories();
+    showMainMenu();
   } catch (err) {
     app.innerHTML = `<p style="color:red;">Failed to load book data. Please check books.json</p>`;
     console.error(err);
   }
 }
 
-// --------- MAIN MENU ---------
+// --------- MAIN MENU: 2 Buttons ---------
+function showMainMenu() {
+  app.innerHTML = '';
+
+  // Shop by Age
+  const ageDiv = document.createElement('div');
+  ageDiv.className = 'category shop-by-age';
+  ageDiv.innerHTML = `
+    <div class="category-title">Shop by Age</div>
+    <div class="category-sub">Browse books by age group</div>
+  `;
+  ageDiv.onclick = showShopByAge;
+  app.appendChild(ageDiv);
+
+  // Shop by Categories
+  const catDiv = document.createElement('div');
+  catDiv.className = 'category shop-by-categories';
+  catDiv.innerHTML = `
+    <div class="category-title">Shop by Categories</div>
+    <div class="category-sub">Browse books by type</div>
+  `;
+  catDiv.onclick = showCategories;
+  app.appendChild(catDiv);
+}
+
+// --------- SHOW ALL CATEGORIES ---------
 function showCategories() {
   app.innerHTML = '';
-  const menu = ["Shop by Age","Story Books","Activity & Practice","Alphabet & Phonics","Numbers & Math","Language Books","TikTok Favorites","Book Sets"];
+
+  const back = document.createElement('div');
+  back.className = 'back';
+  back.textContent = '← Back';
+  back.onclick = showMainMenu;
+  app.appendChild(back);
+
+  // List all categories except Shop by Age
+  const menu = Object.keys(data); // all categories from JSON
 
   menu.forEach(category => {
-  const div = document.createElement('div');
-
-  // Add a special class for "Shop by Age"
-  div.className = category === "Shop by Age" ? 'category shop-by-age' : 'category';
-
-  const desc = category === "Shop by Age" ? "Browse books by age group" : "";
-  div.innerHTML = `
-    <div class="category-title">${category}</div>
-    <div class="category-sub">${desc}</div>
-  `;
-
-  if(category === "Shop by Age"){
-    div.onclick = showShopByAge;
-  } else {
+    const div = document.createElement('div');
+    div.className = 'category';
+    div.innerHTML = `
+      <div class="category-title">${category}</div>
+    `;
     div.onclick = () => showBooks(category);
-  }
-
-  app.appendChild(div);
-});
-
+    app.appendChild(div);
+  });
 }
 
 // --------- SHOW BOOKS BY CATEGORY ---------
@@ -59,13 +80,12 @@ function showBooks(category) {
   back.onclick = showCategories;
   app.appendChild(back);
 
-  // Sort books newest first
   const sortedBooks = data[category].slice().sort((a,b) => new Date(b.dateAdded) - new Date(a.dateAdded));
 
   sortedBooks.forEach(book => {
     const div = document.createElement('div');
     div.className = 'book';
-    const isNew = (new Date() - new Date(book.dateAdded)) / (1000*60*60*24) <= 30; // last 30 days
+    const isNew = (new Date() - new Date(book.dateAdded)) / (1000*60*60*24) <= 30;
     div.innerHTML = `
       ${isNew ? `<div class="badge">New!</div>` : ""}
       <div class="book-title">${book.title}</div>
@@ -84,8 +104,8 @@ function showShopByAge() {
 
   const back = document.createElement('div');
   back.className = 'back';
-  back.textContent = '← Back to categories';
-  back.onclick = showCategories;
+  back.textContent = '← Back';
+  back.onclick = showMainMenu;
   app.appendChild(back);
 
   ageBuckets.forEach(bucket => {
@@ -102,7 +122,6 @@ function showShopByAge() {
       });
     });
 
-    // Sort by newest first
     booksToShow.sort((a,b) => new Date(b.dateAdded) - new Date(a.dateAdded));
 
     booksToShow.forEach(book => {
@@ -131,7 +150,6 @@ function showShopByAge() {
 
       ageSection.appendChild(booksContainer);
 
-      // Accordion toggle
       ageTitle.onclick = () => {
         const isVisible = booksContainer.style.display === 'block';
         booksContainer.style.display = isVisible ? 'none' : 'block';
