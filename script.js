@@ -92,7 +92,7 @@ function showBooks(category) {
   });
 }
 
-// --------- SHOP BY AGE ---------
+// --------- SHOP BY AGE WITH ACCORDION ---------
 function showShopByAge() {
   app.innerHTML = '';
 
@@ -114,7 +114,7 @@ function showShopByAge() {
     });
   });
 
-  // Sort ages numerically (if possible)
+  // Sort ages numerically
   const sortedAges = Object.keys(ageMap).sort((a,b)=>{
     const minA = parseInt(a.split('–')[0]);
     const minB = parseInt(b.split('–')[0]);
@@ -123,9 +123,16 @@ function showShopByAge() {
 
   sortedAges.forEach(age => {
     const ageSection = document.createElement('div');
-    ageSection.className = 'category';
-    ageSection.innerHTML = `<div class="category-title">${age} years</div>`;
-    app.appendChild(ageSection);
+    ageSection.className = 'age-section';
+
+    const ageTitle = document.createElement('div');
+    ageTitle.className = 'age-title';
+    ageTitle.textContent = `👶 ${age} years`;
+    ageSection.appendChild(ageTitle);
+
+    const booksContainer = document.createElement('div');
+    booksContainer.className = 'age-books';
+    ageSection.appendChild(booksContainer);
 
     ageMap[age].forEach(book => {
       const div = document.createElement('div');
@@ -136,8 +143,16 @@ function showShopByAge() {
         <div class="meta">🧠 Skill: ${book.skill}</div>
         <a href="${book.link}" target="_blank">Buy on TikTok</a>
       `;
-      app.appendChild(div);
+      booksContainer.appendChild(div);
     });
+
+    // Accordion toggle
+    ageTitle.onclick = () => {
+      const isVisible = booksContainer.style.display === 'block';
+      booksContainer.style.display = isVisible ? 'none' : 'block';
+    };
+
+    app.appendChild(ageSection);
   });
 }
 
