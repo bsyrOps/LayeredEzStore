@@ -1,4 +1,100 @@
-/* Accordion style for Shop by Age */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  background: url('background.jpg') center/cover no-repeat fixed;
+  color: #111;
+}
+
+header {
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.logo {
+  font-size: 24px;
+}
+
+.container {
+  padding: 16px;
+  max-width: 640px;
+  margin: auto;
+}
+
+.category {
+  background: #e8f0ff;
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.category-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.category-sub {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-top: 6px;
+}
+
+.back {
+  margin-bottom: 16px;
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.book {
+  background: white;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.book a {
+  text-decoration: none;
+  background: #22c55e;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.book-title { font-size: 14px; font-weight: 500; }
+
+.meta { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+
+/* Badge style */
+.badge {
+  font-size: 11px;
+  background: #fffae6;
+  color: #d97706;
+  padding: 2px 6px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+}
+
+/* --- Shop by Age special styling --- */
 .age-section {
   background: rgba(255, 250, 230, 0.85);
   border-radius: 20px;
