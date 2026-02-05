@@ -81,8 +81,8 @@ function showBooks(category) {
   data[category].forEach(book => {
     const div = document.createElement('div');
     div.className = 'book';
+    // ${book.tiktok ? `<div class="badge">As seen on TikTok</div>` : ""}
     div.innerHTML = `
-      ${book.tiktok ? `<div class="badge">As seen on TikTok</div>` : ""}
       <div class="book-title">${book.title}</div>
       <div class="meta">👶 Age: ${book.age} years</div>
       <div class="meta">🧠 Skill: ${book.skill}</div>
