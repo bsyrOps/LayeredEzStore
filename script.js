@@ -32,7 +32,7 @@ function showCategories() {
   // Add a special class for "Shop by Age"
   div.className = category === "Shop by Age" ? 'category shop-by-age' : 'category';
 
-  const desc = category === "Shop by Age" ? "Browse books by age group" : "Explore our books";
+  const desc = category === "Shop by Age" ? "Browse books by age group" : "";
   div.innerHTML = `
     <div class="category-title">${category}</div>
     <div class="category-sub">${desc}</div>
