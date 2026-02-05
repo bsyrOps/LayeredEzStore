@@ -1,103 +1,35 @@
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  margin: 0;
-  background: url('background.jpg') center / cover no-repeat fixed;
-  color: #111;
-}
-
-header {
-  padding: 16px;
-  display: flex;
-  justify-content: center;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(0,0,0,0.7);
-  color: white;
-  padding: 10px 16px;
-  border-radius: 999px;
-  font-weight: 600;
-}
-
-.logo {
-  font-size: 24px;
-}
-
-.container {
-  padding: 16px;
-  max-width: 640px;
-  margin: auto;
-}
-
-.category {
-  background: #e8f0ff;
+/* Accordion style for Shop by Age */
+.age-section {
+  background: rgba(255, 250, 230, 0.85);
   border-radius: 20px;
-  padding: 18px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   cursor: pointer;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-  text-align: center;
+  padding: 12px 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  transition: background 0.2s;
 }
 
-.category-title {
-  font-size: 18px;
-  font-weight: 600;
+.age-section:hover {
+  background: rgba(255, 245, 200, 0.95);
 }
 
-.category-sub {
-  font-size: 14px;
-  opacity: 0.7;
-  margin-top: 6px;
+.age-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #f97316;
 }
 
-.back {
-  margin-bottom: 16px;
-  color: #2563eb;
-  cursor: pointer;
-  font-weight: 500;
+.age-books {
+  margin-top: 10px;
+  display: none; /* hidden by default */
 }
 
-.book {
-  background: white;
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 14px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-}
-
-.book-title {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.meta {
-  font-size: 13px;
-  opacity: 0.85;
-  margin-bottom: 6px;
-}
-
-.badge {
-  display: inline-block;
-  background: #ff4d6d;
-  color: white;
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  margin-bottom: 8px;
-}
-
-.book a {
-  display: inline-block;
-  text-decoration: none;
-  background: #22c55e;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  margin-top: 8px;
+.age-books .book {
+  background: #fffbe6;
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
