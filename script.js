@@ -27,22 +27,26 @@ function showCategories() {
   const menu = ["Shop by Age","Story Books","Activity & Practice","Alphabet & Phonics","Numbers & Math","Language Books","TikTok Favorites","Book Sets"];
 
   menu.forEach(category => {
-    const div = document.createElement('div');
-    div.className = 'category';
-    const desc = category === "Shop by Age" ? "Browse books by age group" : "Explore our books";
-    div.innerHTML = `
-      <div class="category-title">${category}</div>
-      <div class="category-sub">${desc}</div>
-    `;
+  const div = document.createElement('div');
 
-    if(category === "Shop by Age"){
-      div.onclick = showShopByAge;
-    } else {
-      div.onclick = () => showBooks(category);
-    }
+  // Add a special class for "Shop by Age"
+  div.className = category === "Shop by Age" ? 'category shop-by-age' : 'category';
 
-    app.appendChild(div);
-  });
+  const desc = category === "Shop by Age" ? "Browse books by age group" : "Explore our books";
+  div.innerHTML = `
+    <div class="category-title">${category}</div>
+    <div class="category-sub">${desc}</div>
+  `;
+
+  if(category === "Shop by Age"){
+    div.onclick = showShopByAge;
+  } else {
+    div.onclick = () => showBooks(category);
+  }
+
+  app.appendChild(div);
+});
+
 }
 
 // --------- SHOW BOOKS BY CATEGORY ---------
