@@ -92,7 +92,7 @@ function showBooks(category) {
       <div class="meta">Age: ${book.age} years</div>
       <div class="meta">Skill: ${book.skill}</div>
       <div class="meta">📅 Added: ${book.dateAdded}</div>
-      <a href="${book.link}" target="_blank">Buy on TikTok</a>
+      <a href="${book.link}" target="_blank">Checkout & Buy on TikTok</a>
     `;
     app.appendChild(div);
   });
@@ -134,7 +134,7 @@ function showShopByAge() {
         <div class="meta">Age: ${book.age} years</div>
         <div class="meta">Skill: ${book.skill}</div>
         <div class="meta">📅 Added: ${book.dateAdded}</div>
-        <a href="${book.link}" target="_blank">Buy on TikTok</a>
+        <a href="${book.link}" target="_blank">Checkout & Buy on TikTok</a>
       `;
       booksContainer.appendChild(div);
     });
