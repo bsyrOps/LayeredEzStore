@@ -140,7 +140,7 @@ header {
 .age-title {
   font-size: 16px;
   font-weight: 600;
-  #background: #c7d2fe;
+  background: #c7d2fe;
   border-radius: 12px;
   padding: 10px 14px;
   cursor: pointer;
