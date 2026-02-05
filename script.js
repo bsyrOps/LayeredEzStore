@@ -83,7 +83,6 @@ function showBooks(category) {
     const div = document.createElement('div');
     div.className = 'book';
     div.innerHTML = `
-      ${book.tiktok ? `<div class="badge">As seen on TikTok</div>` : ""}
       <div class="book-title">${book.title}</div>
       <div class="meta">Age: ${book.age} years</div>
       <div class="meta">Skill: ${book.skill}</div>
@@ -122,7 +121,6 @@ function showShopByAge() {
           const div = document.createElement('div');
           div.className = 'book';
           div.innerHTML = `
-            ${book.tiktok ? `<div class="badge">As seen on TikTok</div>` : ""}
             <div class="book-title">${book.title}</div>
             <div class="meta">Skill: ${book.skill}</div>
             <a href="${book.link}" target="_blank">Buy on TikTok</a>
