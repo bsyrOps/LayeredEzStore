@@ -45,6 +45,7 @@ const data = {
 // --------- APP ---------
 const app = document.getElementById('app');
 
+// --------- MAIN MENU ---------
 function showCategories() {
   app.innerHTML = '';
   const menu = ["Shop by Age","Story Books","Activity & Practice","Alphabet & Phonics","Numbers & Math","Language Books","TikTok Favorites","Book Sets"];
@@ -52,7 +53,7 @@ function showCategories() {
   menu.forEach(category => {
     const div = document.createElement('div');
     div.className = 'category';
-    const desc = category === "Shop by Age" ? "Browse books for each age group" : "Explore our books";
+    const desc = category === "Shop by Age" ? "Browse books by age group" : "Explore our books";
     div.innerHTML = `
       <div class="category-title">${category}</div>
       <div class="category-sub">${desc}</div>
@@ -81,18 +82,24 @@ function showBooks(category) {
   data[category].forEach(book => {
     const div = document.createElement('div');
     div.className = 'book';
-    // ${book.tiktok ? `<div class="badge">As seen on TikTok</div>` : ""}
     div.innerHTML = `
+      ${book.tiktok ? `<div class="badge">As seen on TikTok</div>` : ""}
       <div class="book-title">${book.title}</div>
-      <div class="meta">👶 Age: ${book.age} years</div>
-      <div class="meta">🧠 Skill: ${book.skill}</div>
+      <div class="meta">Age: ${book.age} years</div>
+      <div class="meta">Skill: ${book.skill}</div>
       <a href="${book.link}" target="_blank">Buy on TikTok</a>
     `;
     app.appendChild(div);
   });
 }
 
-// --------- SHOP BY AGE WITH ACCORDION ---------
+// --------- SHOP BY AGE WITH FIXED BUCKETS & ACCORDION ---------
+const ageBuckets = [
+  { min: 1, max: 3, label: "1–3 years" },
+  { min: 4, max: 6, label: "4–6 years" },
+  { min: 7, max: 9, label: "7–9 years" }
+];
+
 function showShopByAge() {
   app.innerHTML = '';
 
@@ -102,57 +109,49 @@ function showShopByAge() {
   back.onclick = showCategories;
   app.appendChild(back);
 
-  const ageMap = {};
-
-  // Collect all books from all categories
-  Object.values(data).forEach(categoryBooks => {
-    categoryBooks.forEach(book => {
-      if(!ageMap[book.age]){
-        ageMap[book.age] = [];
-      }
-      ageMap[book.age].push(book);
-    });
-  });
-
-  // Sort ages numerically
-  const sortedAges = Object.keys(ageMap).sort((a,b)=>{
-    const minA = parseInt(a.split('–')[0]);
-    const minB = parseInt(b.split('–')[0]);
-    return minA - minB;
-  });
-
-  sortedAges.forEach(age => {
-    const ageSection = document.createElement('div');
-    ageSection.className = 'age-section';
-
-    const ageTitle = document.createElement('div');
-    ageTitle.className = 'age-title';
-    ageTitle.textContent = `👶 ${age} years`;
-    ageSection.appendChild(ageTitle);
-
+  ageBuckets.forEach(bucket => {
     const booksContainer = document.createElement('div');
     booksContainer.className = 'age-books';
-    ageSection.appendChild(booksContainer);
 
-    ageMap[age].forEach(book => {
-      const div = document.createElement('div');
-      div.className = 'book';
-      div.innerHTML = `
-        ${book.tiktok ? `<div class="badge">As seen on TikTok</div>` : ""}
-        <div class="book-title">${book.title}</div>
-        <div class="meta">🧠 Skill: ${book.skill}</div>
-        <a href="${book.link}" target="_blank">Buy on TikTok</a>
-      `;
-      booksContainer.appendChild(div);
+    // Add books that overlap this bucket
+    Object.values(data).forEach(categoryBooks => {
+      categoryBooks.forEach(book => {
+        const [bookMin, bookMax] = book.age.split('–').map(n => parseInt(n));
+        const overlap = !(bookMax < bucket.min || bookMin > bucket.max);
+        if(overlap){
+          const div = document.createElement('div');
+          div.className = 'book';
+          div.innerHTML = `
+            ${book.tiktok ? `<div class="badge">As seen on TikTok</div>` : ""}
+            <div class="book-title">${book.title}</div>
+            <div class="meta">Skill: ${book.skill}</div>
+            <a href="${book.link}" target="_blank">Buy on TikTok</a>
+          `;
+          booksContainer.appendChild(div);
+        }
+      });
     });
 
-    // Accordion toggle
-    ageTitle.onclick = () => {
-      const isVisible = booksContainer.style.display === 'block';
-      booksContainer.style.display = isVisible ? 'none' : 'block';
-    };
+    // Only show bucket if it has books
+    if(booksContainer.childElementCount > 0){
+      const ageSection = document.createElement('div');
+      ageSection.className = 'age-section';
 
-    app.appendChild(ageSection);
+      const ageTitle = document.createElement('div');
+      ageTitle.className = 'age-title';
+      ageTitle.textContent = `${bucket.label}`;
+      ageSection.appendChild(ageTitle);
+
+      ageSection.appendChild(booksContainer);
+
+      // Accordion toggle
+      ageTitle.onclick = () => {
+        const isVisible = booksContainer.style.display === 'block';
+        booksContainer.style.display = isVisible ? 'none' : 'block';
+      };
+
+      app.appendChild(ageSection);
+    }
   });
 }
 
